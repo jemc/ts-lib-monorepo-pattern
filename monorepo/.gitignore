@@ -1,0 +1,5 @@
+# Don't commit external dependencies resolved and downloaded by pnpm.
+node_modules
+
+# Don't commit build products.
+dist

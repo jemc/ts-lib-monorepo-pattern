@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "pnpm run -r build",
+    "pack": "pnpm run -r pack"
+  },
+
+  "pnpm": {
+    "overrides": {
+      "@monorepo/*": "workspace:*"
+    }
+  }
+}

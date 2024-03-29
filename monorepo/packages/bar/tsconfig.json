@@ -1,0 +1,54 @@
+{
+  // Inherit the base configuration from the root of the monorepo.
+  // This is useful to keep things DRY across all sub-projects.
+  //
+  // However, not all settings can be correctly inherited in this way.
+  // Everything below this line is here because it needs to be set
+  // specifically for this sub-project (for one reason or another).
+  // Often the reason is that TypeScript will interpret path values as being
+  // relative to the `tsconfig.json` where they are defined, so we can't
+  // set them in the base config (being in a central directory).
+  //
+  // See https://github.com/microsoft/TypeScript/issues/57485 for a ticket
+  // that, when resolved, may help to make this more manageable.
+  "extends": "../../tsconfig.base.json",
+
+  // Tell TypeScript which files we consider to be within the scope of
+  // this `tsconfig.json` project (i.e. this sub-project in the monorepo).
+  //
+  // Without this, it will try to compile all the files it can find,
+  // and probably not get what we want.
+  //
+  // Note that this pattern should *not* include the files managed by other
+  // `tsconfig.json` sub-project scopes, which we refer to elsewhere via
+  // the `references` list.
+  "include": ["src"],
+
+  // Set up the compiler options for this sub-project.
+  "compilerOptions": {
+    // Tell the compiler to output the compiled files to a specific directory,
+    // rather than dumping them in the same directory as the source files
+    // (which is kind of a wild default behavior for TypeScript, honestly).
+    "outDir": "./dist",
+  },
+
+  // Set up the references to other sub-projects in the monorepo that this
+  // sub-project depends on. Each one points to a directory with a tsconfig.json
+  // that governs a separate scope of files in the overall monorepo.
+  //
+  // Note that this mechanism alone is not enough to allow us to import those
+  // libraries cleanly - we also need to set `compilerOptions.paths` as well.
+  //
+  // Unfortunately we cannot use a wildcard pattern here to allow referencing
+  // all the other packages in the monorepo; we need to list only the ones
+  // that we intend to actually use (such that the total graph of tsconfig
+  // project references is well-defined and acyclic).
+  //
+  // Hence, any changes we make here must also be reflected in `package.json`
+  // (so that published packages know about these dependencies when a user
+  // is installing them), and in `pnpm-workspace.yaml` (so that pnpm knows
+  // about the dependencies as well).
+  "references": [
+    { "path": "../foo" },
+  ]
+}

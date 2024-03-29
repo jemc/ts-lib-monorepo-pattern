@@ -1,0 +1,5 @@
+# This file lets pnpm know that we intend to treat every subdirectory of
+# the packages directory as a separate package, with its own `package.json`.
+
+packages:
+  - "packages/*"

@@ -1,0 +1,26 @@
+{
+  // Set up the compiler options we want to inherit in all sub-projects
+  // of this monorepo. These will be inherited using the `extends` field.
+  "compilerOptions": {
+    // We need to enable the `composite` option for any `tsconfig.json` which
+    // may need to be referenced by another `tsconfig.json` in the monorepo
+    // (or in any repo which wants to consume the monorepo as source code).
+    //
+    // For us, it basically means we should be setting this to `true` for
+    // all the packages that we are defining in the monorepo.
+    //
+    // Note that setting `composite: true` changes the default for the
+    // `incremental` option to `true`, so we don't need to explicitly set that.
+    "composite": true,
+
+    // Here we set up the mechanism which allows us to `import` other modules
+    // in the monorepo.
+    //
+    // Note that this mechanism alone is not enough to allow us to import those
+    // libraries cleanly - we also need to set `references` within each
+    // individual sub-project's `tsconfig.json` as well.
+    "paths": {
+      "@monorepo/*": ["./packages/*/src"],
+    },
+  },
+}

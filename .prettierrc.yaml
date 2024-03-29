@@ -1,0 +1,4 @@
+# This has nothing to do with getting the monorepo setup working correctly.
+
+# I just hate unnecessary semicolons, and hereby banish them!
+semi: false

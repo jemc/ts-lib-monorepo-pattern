@@ -1,0 +1,21 @@
+{
+  "name": "@monorepo/bar",
+  "version": "0.1.0",
+
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/src"
+  ],
+
+  "scripts": {
+    "build": "tsc",
+    "pack": "rm -rf dist && pnpm run build && pnpm pack --pack-destination dist && tar -tvf dist/*.tgz"
+  },
+
+  "dependencies": {
+    "@monorepo/foo": "^0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.3"
+  }
+}
