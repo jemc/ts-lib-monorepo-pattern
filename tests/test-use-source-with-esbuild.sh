@@ -5,6 +5,10 @@ set -eu
 cp -r ../../monorepo .
 
 # Set up a simple project that uses typescript and esbuild.
+cat <<EOF > pnpm-workspace.yaml
+packages:
+  - monorepo/packages/*
+EOF
 cat <<EOF > package.json
 {
   "scripts": {
@@ -28,7 +32,7 @@ cat <<EOF > tsconfig.json
   ]
 }
 EOF
-pnpm add -D typescript esbuild
+pnpm add -D typescript esbuild --workspace-root --prefer-offline
 
 # Write some simple code leveraging the monorepo libraries.
 mkdir src
@@ -39,16 +43,18 @@ import { Bar } from '@monorepo/bar'
 console.log(new Foo().foo())
 console.log(new Bar().foo())
 console.log(new Bar().bar())
+console.log(new Bar().pnpmWorkspaceFilename())
 EOF
 
 # Build and run the simple code in Node.js.
 pnpm run build
 cat dist/index.js
-node dist/index.js > out.actual.txt
+pnpm exec node dist/index.js > out.actual.txt
 cat <<EOF > out.expected.txt
 foo
 foo
 bar
+pnpm-workspace.yaml
 EOF
 
 # Confirm that we get the expected output.

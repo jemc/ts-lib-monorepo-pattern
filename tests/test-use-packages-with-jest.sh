@@ -49,6 +49,10 @@ export class Example {
   barbar() {
     return this._bar.bar()
   }
+
+  pnpmWorkspaceFilename() {
+    return this._bar.pnpmWorkspaceFilename()
+  }
 }
 EOF
 
@@ -64,6 +68,7 @@ describe("Example", () => {
     expect(example.foofoo()).toBe("foo")
     expect(example.barfoo()).toBe("foo")
     expect(example.barbar()).toBe("bar")
+    expect(example.pnpmWorkspaceFilename()).toBe("pnpm-workspace.yaml")
   })
 })
 EOF

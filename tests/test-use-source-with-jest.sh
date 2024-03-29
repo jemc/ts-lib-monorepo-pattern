@@ -5,6 +5,10 @@ set -eu
 cp -r ../../monorepo .
 
 # Set up a simple project that uses typescript and jest.
+cat <<EOF > pnpm-workspace.yaml
+packages:
+  - monorepo/packages/*
+EOF
 cat <<'EOF' > package.json
 {
   "scripts": {
@@ -33,7 +37,7 @@ cat <<'EOF' > tsconfig.json
   ]
 }
 EOF
-pnpm add -D typescript ts-jest jest @jest/globals --prefer-offline
+pnpm add -D typescript ts-jest jest @jest/globals --workspace-root --prefer-offline
 
 # Write some simple code leveraging the monorepo libraries.
 mkdir src
@@ -56,6 +60,10 @@ export class Example {
   barbar() {
     return this._bar.bar()
   }
+
+  pnpmWorkspaceFilename() {
+    return this._bar.pnpmWorkspaceFilename()
+  }
 }
 EOF
 
@@ -71,6 +79,7 @@ describe("Example", () => {
     expect(example.foofoo()).toBe("foo")
     expect(example.barfoo()).toBe("foo")
     expect(example.barbar()).toBe("bar")
+    expect(example.pnpmWorkspaceFilename()).toBe("pnpm-workspace.yaml")
   })
 })
 EOF

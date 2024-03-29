@@ -16,6 +16,9 @@ importers:
       '@monorepo/foo':
         specifier: ^0.1.0
         version: link:../foo
+      '@pnpm/constants':
+        specifier: ^7.1.1
+        version: 7.1.1
     devDependencies:
       typescript:
         specifier: ^5.4.3
@@ -28,6 +31,11 @@ importers:
         version: 5.4.3
 
 packages:
+
+  /@pnpm/constants@7.1.1:
+    resolution: {integrity: sha512-31pZqMtjwV+Vaq7MaPrT1EoDFSYwye3dp6BiHIGRJmVThCQwySRKM7hCvqqI94epNkqFAAYoWrNynWoRYosGdw==}
+    engines: {node: '>=16.14'}
+    dev: false
 
   /typescript@5.4.3:
     resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}

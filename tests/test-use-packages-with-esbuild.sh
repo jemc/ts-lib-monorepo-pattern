@@ -41,16 +41,18 @@ import { Bar } from "@monorepo/bar"
 console.log(new Foo().foo())
 console.log(new Bar().foo())
 console.log(new Bar().bar())
+console.log(new Bar().pnpmWorkspaceFilename())
 EOF
 
 # Build and run the simple code in Node.js.
 pnpm run build
 cat dist/index.js
-node dist/index.js > out.actual.txt
+pnpm exec node dist/index.js > out.actual.txt
 cat <<'EOF' > out.expected.txt
 foo
 foo
 bar
+pnpm-workspace.yaml
 EOF
 
 # Confirm that we get the expected output.

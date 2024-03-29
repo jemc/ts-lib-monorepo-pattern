@@ -13,7 +13,8 @@
   },
 
   "dependencies": {
-    "@monorepo/foo": "^0.1.0"
+    "@monorepo/foo": "^0.1.0",
+    "@pnpm/constants": "^7.1.1"
   },
   "devDependencies": {
     "typescript": "^5.4.3"

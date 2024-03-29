@@ -11,7 +11,7 @@ This repository's top level sits at one level higher than the monorepo pattern i
 - `monorepo` - The monorepo pattern itself, with minimal config and two example libraries
   - `packages` - The libraries themselves
     - `foo` - A simple library with no dependencies
-    - `bar` - A simple library with a dependency on `foo`
+    - `bar` - A simple library with a dependency on `foo` and a third-party dependency
 - `tests` - End-to-end tests of the monorepo setup, which simulate different ways of using it
   - `run-all-tests.sh` - A script to run all tests, in series
   - `run-test.sh` - A script to run one tests (passing the desired test script as a CLI arg)
